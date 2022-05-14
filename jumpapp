@@ -106,8 +106,6 @@ jumpapp() {
     else
         if (( ${#pids[@]} )) && [[ -z "$force" ]]; then
             die "Error: found running process for '$cmdid', but found no window to jump to"
-        else
-            launch_command "$@"
         fi
     fi
 }
@@ -292,18 +290,6 @@ get_next_window() {
         printf '%s\n' "$1"
     else
         printf '%s\n' "$first"
-    fi
-}
-
-launch_command() {
-    has_command "$cmd" || die "Error: unable to find command '$cmd'"
-
-    printf 'Launching: %s\n' "$cmd $*"
-
-    if [[ "$fork" ]]; then
-        fork_command "$cmd" "$@"
-    else
-        exec_command "$cmd" "$@"
     fi
 }
 
